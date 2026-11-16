@@ -4,164 +4,59 @@ import type { Experience, FoodSpot, Stay, TripPlan } from "./types.ts";
 export const STAY_DATES = "11 – 13 Apr";
 export const STAY_NIGHTS = 2;
 
-type Tagged<T> = T & { tags: string[] };
+// One row per sheet of the Kyoto weekend content worksheet (Stay, Experience, Food).
+// Placeholder data: replace with the real worksheet rows when they are available.
+const STAY_PRICE_PER_NIGHT = 148;
 
-const stay = (s: Omit<Stay, "type" | "dates" | "nights" | "total">): Omit<Stay, "type"> => ({
-  ...s,
+const STAY: Stay = {
+  type: "stay",
+  name: "Lantern loft above Sanjo Arcade",
+  kind: "Entire loft",
+  area: "Nakagyo",
+  pricePerNight: STAY_PRICE_PER_NIGHT,
+  rating: 4.89,
+  reviews: 176,
+  guestFavorite: true,
+  perks: ["1 bed", "Cedar soaking tub", "Rooftop terrace"],
+  art: "machiya",
   dates: STAY_DATES,
   nights: STAY_NIGHTS,
-  total: s.pricePerNight * STAY_NIGHTS,
-});
+  total: STAY_PRICE_PER_NIGHT * STAY_NIGHTS,
+};
 
-// Sample data for the prototype: places are illustrative, not real listings.
-const STAYS: Tagged<Omit<Stay, "type">>[] = [
-  {
-    ...stay({
-      name: "Machiya townhouse by Gion",
-      kind: "Entire home",
-      area: "Higashiyama",
-      pricePerNight: 182,
-      rating: 4.94,
-      reviews: 212,
-      guestFavorite: true,
-      perks: ["2 beds", "Tatami room", "Garden courtyard"],
-      art: "machiya",
-    }),
-    tags: ["traditional", "gion", "temple", "tea", "culture", "couple", "romantic"],
-  },
-  {
-    ...stay({
-      name: "Bright studio near Kyoto Station",
-      kind: "Entire rental unit",
-      area: "Shimogyo",
-      pricePerNight: 96,
-      rating: 4.86,
-      reviews: 148,
-      guestFavorite: false,
-      perks: ["1 bed", "Self check-in", "5 min to trains"],
-      art: "studio",
-    }),
-    tags: ["budget", "cheap", "affordable", "solo", "station", "ramen", "student"],
-  },
-  {
-    ...stay({
-      name: "Riverside ryokan suite, Arashiyama",
-      kind: "Room in ryokan",
-      area: "Arashiyama",
-      pricePerNight: 340,
-      rating: 4.97,
-      reviews: 89,
-      guestFavorite: true,
-      perks: ["Private onsen bath", "River view", "Breakfast"],
-      art: "ryokan",
-    }),
-    tags: ["luxury", "onsen", "splurge", "anniversary", "honeymoon", "bamboo", "nature", "quiet", "ryokan"],
-  },
-];
+const EXPERIENCE: Experience = {
+  type: "experience",
+  name: "Indigo dyeing in a family workshop",
+  startTime: "2:00 PM",
+  day: "12 Apr",
+  duration: "2 hrs",
+  area: "Nishijin",
+  host: "Haruka",
+  pricePerGuest: 54,
+  rating: 4.95,
+  reviews: 203,
+  art: "tea",
+};
 
-const EXPERIENCES: Tagged<Omit<Experience, "type">>[] = [
-  {
-    name: "Tea ceremony in a 100-year-old teahouse",
-    startTime: "9:30 AM",
-    day: "12 Apr",
-    duration: "90 min",
-    area: "Higashiyama",
-    host: "Yuki",
-    pricePerGuest: 48,
-    rating: 4.96,
-    reviews: 534,
-    art: "tea",
-    tags: ["tea", "culture", "traditional", "matcha", "calm", "romantic", "couple"],
-  },
-  {
-    name: "Sunrise walk through the bamboo grove",
-    startTime: "6:30 AM",
-    day: "12 Apr",
-    duration: "2 hrs",
-    area: "Arashiyama",
-    host: "Kenji",
-    pricePerGuest: 35,
-    rating: 4.91,
-    reviews: 318,
-    art: "bamboo",
-    tags: ["bamboo", "nature", "walk", "photo", "photography", "quiet", "outdoor", "budget", "cheap"],
-  },
-  {
-    name: "Lantern-lit night hike at Fushimi Inari",
-    startTime: "6:00 PM",
-    day: "12 Apr",
-    duration: "2.5 hrs",
-    area: "Fushimi",
-    host: "Aiko",
-    pricePerGuest: 42,
-    rating: 4.93,
-    reviews: 276,
-    art: "torii",
-    tags: ["shrine", "temple", "hike", "night", "torii", "adventure", "friends", "solo"],
-  },
-];
+const FOOD: FoodSpot = {
+  type: "food",
+  dish: "Duck soba",
+  place: "Kamo Riverside Soba",
+  area: "Demachiyanagi",
+  priceBand: "$$",
+  cuisine: "Soba",
+  walkFromStay: "14 min walk",
+  tip: "Ask for the hot broth on the side.",
+  art: "ramen",
+};
 
-const FOOD: Tagged<Omit<FoodSpot, "type">>[] = [
-  {
-    dish: "Charcoal yakitori",
-    place: "Pontocho Alley Grill",
-    area: "Pontocho",
-    priceBand: "$$",
-    cuisine: "Izakaya",
-    walkFromStay: "12 min walk",
-    tip: "Go before 6 PM, counter seats fill fast.",
-    art: "yakitori",
-    tags: ["dinner", "izakaya", "friends", "night", "sake", "grill", "couple"],
-  },
-  {
-    dish: "Shoyu ramen",
-    place: "Nishiki Noodle Bar",
-    area: "Nishiki Market",
-    priceBand: "$",
-    cuisine: "Ramen",
-    walkFromStay: "8 min walk",
-    tip: "Order the soft egg, it sells out by 1 PM.",
-    art: "ramen",
-    tags: ["ramen", "noodle", "noodles", "budget", "cheap", "lunch", "solo", "market", "affordable"],
-  },
-  {
-    dish: "Tofu kaiseki lunch",
-    place: "Sagano Garden Table",
-    area: "Arashiyama",
-    priceBand: "$$$",
-    cuisine: "Kaiseki",
-    walkFromStay: "15 min walk",
-    tip: "Ask for the garden-side room when you book.",
-    art: "tofu",
-    tags: ["vegetarian", "vegan", "tofu", "kaiseki", "luxury", "splurge", "quiet", "onsen", "anniversary", "ryokan"],
-  },
-];
-
-function pick<T>(items: Tagged<T>[], words: Set<string>): T {
-  let best = items[0];
-  let bestScore = 0;
-  for (const item of items) {
-    const score = item.tags.filter((t) => words.has(t)).length;
-    if (score > bestScore) {
-      best = item;
-      bestScore = score;
-    }
-  }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { tags, ...rest } = best;
-  return rest as T;
-}
-
-export function buildPlan(request: string): TripPlan {
-  const words = new Set(request.toLowerCase().match(/[a-z]+/g) ?? []);
-  const stayPick = pick(STAYS, words);
-  const experience = pick(EXPERIENCES, words);
-  const food = pick(FOOD, words);
+/** Every request gets the same three rows; the message is not used to choose them. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function buildPlan(_request: string): TripPlan {
   return {
-    intro: `Here's your Kyoto weekend for ${STAY_DATES}: a stay in ${stayPick.area}, one thing to do and one place to eat.`,
-    // Each item carries a type label so a client can tell the cards apart.
-    stay: { type: "stay", ...stayPick },
-    experience: { type: "experience", ...experience },
-    food: { type: "food", ...food },
+    intro: `Here's your Kyoto weekend for ${STAY_DATES}: a stay in ${STAY.area}, one thing to do and one place to eat.`,
+    stay: { ...STAY, perks: [...STAY.perks] },
+    experience: { ...EXPERIENCE },
+    food: { ...FOOD },
   };
 }

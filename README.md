@@ -2,7 +2,7 @@
 
 A chat prototype: the guest types one Kyoto trip request, a thinking animation plays, and three cards come back — one stay, one experience, one food spot. No login. Works on phone and laptop.
 
-Listings are sample data and the illustrations stand in for photos. Planning is a mock API route (`app/api/plan`) that picks from a small set by keywords in the request.
+Listings are sample data and the illustrations stand in for photos. Planning is a mock API route (`app/api/plan`) that returns the same three rows for every request: one stay, one experience, one food spot (`lib/planner.ts`).
 
 ## Run
 
