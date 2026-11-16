@@ -2,6 +2,8 @@
 
 A chat prototype: the guest types one Kyoto trip request, a thinking animation plays, and three cards come back — one stay, one experience, one food spot. No login. Works on phone and laptop.
 
+![Chat thread showing the guest request and the stay, experience and food spot cards](docs/thread-three-cards.png)
+
 Listings are sample data and the illustrations stand in for photos. Planning is a mock API route (`app/api/plan`) that returns the same three rows for every request: one stay, one experience, one food spot (`lib/planner.ts`).
 
 ## Run
