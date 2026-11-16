@@ -4,8 +4,8 @@ import type { Experience, FoodSpot, Stay, TripPlan } from "./types.ts";
 export const STAY_DATES = "11 – 13 Apr";
 export const STAY_NIGHTS = 2;
 
-// One row per sheet of the Kyoto weekend content worksheet (Stay, Experience, Food).
-// Placeholder data: replace with the real worksheet rows when they are available.
+// One row per sheet of the Kyoto weekend content worksheet (docs/kyoto-weekend-content.xlsx):
+// row 2 of the Stay, Experience and Food sheets. The worksheet holds fake data.
 const STAY_PRICE_PER_NIGHT = 148;
 
 const STAY: Stay = {

@@ -4,7 +4,7 @@ A chat prototype: the guest types one Kyoto trip request, a thinking animation p
 
 ![Chat thread showing the guest request and the stay, experience and food spot cards](docs/thread-three-cards.png)
 
-Listings are sample data and the illustrations stand in for photos. Planning is a mock API route (`app/api/plan`) that returns the same three rows for every request: one stay, one experience, one food spot (`lib/planner.ts`).
+Listings are sample data and the illustrations stand in for photos. Planning is a mock API route (`app/api/plan`) that returns the same three rows for every request: one stay, one experience, one food spot (`lib/planner.ts`). Those rows are row 2 of the Stay, Experience and Food sheets in `docs/kyoto-weekend-content.xlsx`, a worksheet of fake data.
 
 ## Run
 
