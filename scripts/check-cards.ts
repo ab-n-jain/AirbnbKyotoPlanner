@@ -21,4 +21,14 @@ for (const request of requests) {
   if (!ok) failed = true;
 }
 
+const plan = buildPlan("tea and temples");
+const order = Object.keys(plan).filter((k) => k !== "intro").join(", ");
+const labelled =
+  order === "stay, experience, food" &&
+  plan.stay.type === "stay" &&
+  plan.experience.type === "experience" &&
+  plan.food.type === "food";
+console.log(`${labelled ? "PASS" : "FAIL"}  reply order "${order}", each item has its type label`);
+if (!labelled) failed = true;
+
 process.exit(failed ? 1 : 0);

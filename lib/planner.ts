@@ -6,7 +6,7 @@ export const STAY_NIGHTS = 2;
 
 type Tagged<T> = T & { tags: string[] };
 
-const stay = (s: Omit<Stay, "dates" | "nights" | "total">): Stay => ({
+const stay = (s: Omit<Stay, "type" | "dates" | "nights" | "total">): Omit<Stay, "type"> => ({
   ...s,
   dates: STAY_DATES,
   nights: STAY_NIGHTS,
@@ -14,7 +14,7 @@ const stay = (s: Omit<Stay, "dates" | "nights" | "total">): Stay => ({
 });
 
 // Sample data for the prototype: places are illustrative, not real listings.
-const STAYS: Tagged<Stay>[] = [
+const STAYS: Tagged<Omit<Stay, "type">>[] = [
   {
     ...stay({
       name: "Machiya townhouse by Gion",
@@ -59,7 +59,7 @@ const STAYS: Tagged<Stay>[] = [
   },
 ];
 
-const EXPERIENCES: Tagged<Experience>[] = [
+const EXPERIENCES: Tagged<Omit<Experience, "type">>[] = [
   {
     name: "Tea ceremony in a 100-year-old teahouse",
     startTime: "9:30 AM",
@@ -101,7 +101,7 @@ const EXPERIENCES: Tagged<Experience>[] = [
   },
 ];
 
-const FOOD: Tagged<FoodSpot>[] = [
+const FOOD: Tagged<Omit<FoodSpot, "type">>[] = [
   {
     dish: "Charcoal yakitori",
     place: "Pontocho Alley Grill",
@@ -159,8 +159,9 @@ export function buildPlan(request: string): TripPlan {
   const food = pick(FOOD, words);
   return {
     intro: `Here's your Kyoto weekend for ${STAY_DATES}: a stay in ${stayPick.area}, one thing to do and one place to eat.`,
-    stay: stayPick,
-    experience,
-    food,
+    // Each item carries a type label so a client can tell the cards apart.
+    stay: { type: "stay", ...stayPick },
+    experience: { type: "experience", ...experience },
+    food: { type: "food", ...food },
   };
 }

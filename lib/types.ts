@@ -1,4 +1,5 @@
 export type Stay = {
+  type: "stay";
   name: string;
   kind: string;
   area: string;
@@ -14,6 +15,7 @@ export type Stay = {
 };
 
 export type Experience = {
+  type: "experience";
   name: string;
   startTime: string;
   day: string;
@@ -27,6 +29,7 @@ export type Experience = {
 };
 
 export type FoodSpot = {
+  type: "food";
   dish: string;
   place: string;
   area: string;
@@ -47,12 +50,15 @@ export type TripPlan = {
 export function isTripPlan(value: unknown): value is TripPlan {
   if (!value || typeof value !== "object") return false;
   const v = value as Record<string, unknown>;
-  const has = (o: unknown, key: string) =>
-    !!o && typeof o === "object" && typeof (o as Record<string, unknown>)[key] === "string";
+  const is = (o: unknown, type: string, key: string) =>
+    !!o &&
+    typeof o === "object" &&
+    (o as Record<string, unknown>).type === type &&
+    typeof (o as Record<string, unknown>)[key] === "string";
   return (
     typeof v.intro === "string" &&
-    has(v.stay, "name") &&
-    has(v.experience, "name") &&
-    has(v.food, "dish")
+    is(v.stay, "stay", "name") &&
+    is(v.experience, "experience", "name") &&
+    is(v.food, "food", "dish")
   );
 }
